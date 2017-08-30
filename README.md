@@ -1,6 +1,6 @@
-# st-solarized-light
+# st-solarized
 
-An ArchLinux PKGBUILD for [st][1] with patches applied [Solarized][2] dark theme.
+An ArchLinux PKGBUILD for [st][1] with patches applied [Solarized][2] themes.
 
 This also sets the font to [Inconsolata][3] 16.
 
