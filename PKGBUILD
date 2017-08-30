@@ -1,4 +1,5 @@
 # Maintainer: George Ornbo <george@shapeshed.com>
+# Source: https://github.com/shapeshed/st-solarized-dark
 
 pkgname=st-solarized
 appname='st'
