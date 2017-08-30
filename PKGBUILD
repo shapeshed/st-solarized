@@ -24,8 +24,8 @@ sha256sums=('SKIP'
 prepare() {
   cd "$srcdir/$appname"
   patch -i "$srcdir/st-no_bold_colors-20170623-b331da5.diff"
-    patch -i "$srcdir/st-solarized-both-20170626-b331da5.diff"
-    cp config.def.h config.h
+  patch -i "$srcdir/st-solarized-both-20170626-b331da5.diff"
+  cp config.def.h config.h
   sed -i 's/Liberation Mono:pixelsize=12:antialias=true:autohint=true/Inconsolata:pixelsize=20:antialias=true:autohint=true/' config.h 
 }
 
