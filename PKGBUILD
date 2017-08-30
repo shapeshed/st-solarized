@@ -2,7 +2,7 @@
 # Source: https://github.com/shapeshed/st-solarized-dark
 
 pkgname=st-solarized
-appname='st'
+_appname='st'
 provides=('st')
 conflicts=('st')
 pkgver=0.8
@@ -22,19 +22,19 @@ sha256sums=('SKIP'
         'd1f168d225763680c6dc6e9a426b8bb56ff45967ffd0ea79f56b7af42c1141d9')
 
 prepare() {
-  cd "$srcdir/$appname"
+  cd "$srcdir/$_appname"
   patch -i "$srcdir/st-no_bold_colors-20170623-b331da5.diff"
   patch -i "$srcdir/st-solarized-both-20170626-b331da5.diff"
   cp config.def.h config.h
 }
 
 build() {
-  cd "$srcdir/$appname"
+  cd "$srcdir/$_appname"
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "$srcdir/$appname"
+  cd "$srcdir/$_appname"
   make PREFIX=/usr DESTDIR="$pkgdir" TERMINFO="$pkgdir/usr/share/terminfo" install
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -Dm644 README "$pkgdir/usr/share/doc/$pkgname/README"
