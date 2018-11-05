@@ -5,7 +5,7 @@ pkgname=st-solarized
 appname='st'
 provides=(${appname})
 conflicts=(${appname})
-pkgver=0.8
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X. Patched for solarized dark and Inconsolata font.'
 arch=('i686' 'x86_64')
@@ -13,23 +13,25 @@ license=('MIT')
 depends=('libxext' 'libxft')
 makedepends=('ncurses')
 url="http://st.suckless.org"
-source=('git://git.suckless.org/st#commit=b331da550b290d54592b7ba11242c92f5a303a48'
-        'http://st.suckless.org/patches/solarized/st-no_bold_colors-20170623-b331da5.diff'  
-        'http://st.suckless.org/patches/solarized/st-solarized-both-20170626-b331da5.diff')
+source=(https://dl.suckless.org/st/st-$pkgver.tar.gz
+        https://st.suckless.org/patches/solarized/st-no_bold_colors-$pkgver.diff
+        http://st.suckless.org/patches/solarized/st-solarized-both-$pkgver.diff)
 
-sha256sums=('SKIP'
-        '71e1211189d9e11da93ee49388379c5f8469fcd3e1f48bb4d791ddaf161f5845'
-        'd1f168d225763680c6dc6e9a426b8bb56ff45967ffd0ea79f56b7af42c1141d9')
+sha256sums=('c4fb0fe2b8d2d3bd5e72763e80a8ae05b7d44dbac8f8e3bb18ef0161c7266926'
+        '5a6e2b745c7746228e0ee4e84214e3ac7054e6d451bc5843364e878bb2011e3b'
+        '698e7ee411cf80ae31e11d41daf2713b6ed8f3f533281efb9a8c200f458a03bf')
 
 build() {
-  cd "$srcdir/$_appname"
-  patch -i "$srcdir/st-no_bold_colors-20170623-b331da5.diff"
-  patch -i "$srcdir/st-solarized-both-20170626-b331da5.diff"
+  cd "$srcdir/$_appname/st-$pkgver"
+  patch -p1 < "$srcdir/st-no_bold_colors-$pkgver.diff"
+  patch -p1 < "$srcdir/st-solarized-both-$pkgver.diff"
+  #git apply "$srcdir/st-no_bold_colors-$pkgver.diff"
+  #git apply < "$srcdir/st-solarized-both-$pkgver.diff"
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "$srcdir/$_appname"
+  cd "$srcdir/$_appname/st-$pkgver"
   make PREFIX=/usr DESTDIR="$pkgdir" TERMINFO="$pkgdir/usr/share/terminfo" install
 
   # Avoid conflict with ncurses package
